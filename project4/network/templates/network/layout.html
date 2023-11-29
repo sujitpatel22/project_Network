@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Social Network{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'printeasy/styles.css' %}">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div style="display:flex;">
+            <a id="home" class="navbar-brand" href="#">PrintEasy</a>
+            </div>
+
+            <div class="nav_items">
+              <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a id="profile_btn" class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                  <a id="posts_btn" class="nav-link" href="{% url 'index' %}">My orders</a>
+                </li>
+                {% comment %} {% if user.is_authenticated %} {% endcomment %}
+                    <li class="nav-item">
+                        <a id="flwing_btn" class="nav-link" href="#">Completed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="saved_btn" class="nav-link">Pending</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="blocklist_btn" class="nav-link">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% comment %} {% else %} {% endcomment %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% comment %} {% endif %} {% endcomment %}
+              </ul>
+            </div>
+          </nav>
+
+        <div id="body">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+    <script src="{% static 'printeasy/index.js' %}"></script>
+</html>
